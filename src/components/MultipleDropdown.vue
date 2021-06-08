@@ -4,22 +4,24 @@
       class="dropdown-with-label"
       v-for="(dropdown, index) in dropdowns"
       :key="index"
-      v-show="dropdown.isShow"
     >
-      <div class="dropdown-label">
-        <span>Choose {{ dropdown.label }}:</span>
-        <div class="arrow">
-          <div class="line"></div>
-          <div class="point"></div>
+      <template v-if="dropdown.isShow">
+        <div class="dropdown-label">
+          <span>Choose {{ dropdown.label }}:</span>
+          <div class="arrow">
+            <div class="line"></div>
+            <div class="point"></div>
+          </div>
         </div>
-      </div>
-      <Dropdown
-        class="dropdown-container"
-        :ref="`dropdown-${index}`"
-        @selected="(data) => seleteData(data, index)"
-        :defaultSelected="'ab'"
-        :options="dropdown.options"
-      />
+        <Dropdown
+          class="dropdown-container"
+          :key="dropdowns[index - 1] && dropdowns[index - 1].selected"
+          :ref="`dropdown-${index}`"
+          @selected="(data) => seleteData(data, index)"
+          :defaultSelected="'ab'"
+          :options="dropdown.options"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -133,9 +135,16 @@ export default {
   computed: {},
   methods: {
     seleteData(data, index) {
+      this.dropdowns[index].selected = data.id;
+
       console.log(data);
       if (this.dropdowns[index + 1]) {
         this.dropdowns[index + 1].isShow = true;
+        this.dropdowns.forEach((_, idx) => {
+          if (idx > index + 1) {
+            this.dropdowns[idx].isShow = false;
+          }
+        });
       } else {
         this.$emit("complete");
       }

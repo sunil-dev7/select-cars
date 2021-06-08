@@ -15,7 +15,7 @@
       />
 
       <!-- Dropdown Menu -->
-      <div class="dropdown-items-container" v-show="optionsShown">
+      <div class="dropdown-items-container" v-if="optionsShown">
         <ul
           class="dropdown-content"
           v-for="(collumn, index) in numberOfCollumn"
@@ -135,7 +135,7 @@ export default {
     },
     showOptions() {
       if (!this.disabled) {
-        this.searchFilter = "";
+        this.searchFilter = '';
         this.optionsShown = true;
       }
     },
