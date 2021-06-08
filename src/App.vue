@@ -1,115 +1,56 @@
 <template>
-  <div class="all-dropdown-container">
-    <Dropdown
-      v-for="(dropdown, index) in dropdowns"
-      :ref="`dropdown-${index}`"
-      @selected="(data) => seleteData(data, index)"
-      :defaultSelected="'ab'"
-      :options="dropdown"
-      :key="index"
-    />
+  <div class="app">
+    <img style="margin-bottom: 20px" :src="'./2.jpg'" />
+    <MultipleDropdown @complete="isDone = true" />
+    <div><button @click="moveToNext">Search Part</button></div>
+    <img style="margin-top: 20px" class="bottom-image" :src="'./1.jpg'" />
   </div>
 </template>
 
 <script>
-import Dropdown from "./components/Dropdown.vue";
+import MultipleDropdown from "./components/MultipleDropdown.vue";
 
 export default {
   name: "App",
   components: {
-    Dropdown,
+    MultipleDropdown,
   },
   data() {
     return {
-      years: [
-        {
-          name: "1996",
-          id: "1996",
-        },
-        {
-          name: "1997",
-          id: "1997",
-        },
-        {
-          name: "1998",
-          id: "1998",
-        },
-        {
-          name: "1999",
-          id: "1999",
-        },
-        {
-          name: "2000",
-          id: "2000",
-        },
-        {
-          name: "2001",
-          id: "2001",
-        },
-        {
-          name: "2002",
-          id: "2002",
-        },
-      ],
-      Make: [
-        {
-          name: "Honda",
-          id: "Honda",
-        },
-        {
-          name: "Toyota",
-          id: "Toyota",
-        },
-        {
-          name: "Yamaha",
-          id: "Yamaha",
-        },
-        {
-          name: "Mecerdes",
-          id: "Mecerdes",
-        },
-        {
-          name: "Porsche",
-          id: "Porsche",
-        },
-        {
-          name: "Audi",
-          id: "Audi",
-        },
-        {
-          name: "Aucura",
-          id: "Aucura",
-        },
-      ],
+      isDone: false,
     };
   },
-  computed: {
-    dropdowns() {
-      return [this.years, this.Make];
-    },
-  },
+
   methods: {
-    seleteData(data, index) {
-      console.log(data);
-      this.$refs[`dropdown-${index + 1}`] &&
-        this.$refs[`dropdown-${index + 1}`].showOptions();
+    moveToNext() {
+      if (this.isDone) {
+        window.location.href =
+          "https://www.partsgeek.com/ymm/2020/autocar_llc-dt-/xpeditor.html";
+      } else {
+        alert("Please complete the flow");
+      }
     },
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.app {
+  background: white;
 }
-
-.all-dropdown-container {
-  display: flex;
-  flex-wrap: wrap;
+button {
+  color: #fff;
+  background-color: #ef6f1a;
+  border-color: #ef6f1a;
+  font-weight: 700;
+  font-size: 1.75rem;
+  width: 300px;
+  border-radius: 10px;
+  border: 0;
+  height: 70px;
+  margin-top: 20px;
+}
+button:hover {
+  cursor: pointer;
 }
 </style>
