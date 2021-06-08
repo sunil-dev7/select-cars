@@ -140,6 +140,10 @@ export default {
       console.log(data);
       if (this.dropdowns[index + 1]) {
         this.dropdowns[index + 1].isShow = true;
+        this.$nextTick(() => {
+          this.$refs[`dropdown-${index + 1}`].showOptions();
+        });
+
         this.dropdowns.forEach((_, idx) => {
           if (idx > index + 1) {
             this.dropdowns[idx].isShow = false;
