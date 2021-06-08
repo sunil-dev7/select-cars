@@ -1,4 +1,4 @@
-# drop-down
+# dropdown
 
 ## Project setup
 ```
